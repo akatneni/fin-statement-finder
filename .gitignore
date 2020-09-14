@@ -1,0 +1,10 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+#security keys
+statement_key.ppk
+statement_key.pem
+app/config.py
+
+# misc
+.DS_Store
+app/__pycache__
