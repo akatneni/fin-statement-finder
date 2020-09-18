@@ -3,7 +3,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support import expected_conditions as expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
+import os
 
 GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
@@ -26,11 +27,11 @@ def getTable(CIK,page):
     #driver=webdriver.Chrome(options=options)
     driver.get(url)
     try:
-        WebDriverWait(driver,DEFAULT_WAIT).until(expected_conditions.title_is("EDGAR Search Results"))
+        WebDriverWait(driver,DEFAULT_WAIT).until(EC.title_is("EDGAR Search Results"))
         driver.find_element_by_id("interactiveDataBtn").click()
     except:
         return ERROR_MESSAGE
-    WebDriverWait(driver,DEFAULT_WAIT).until(expected_conditions.title_is("View Filing Data"))
+    WebDriverWait(driver,DEFAULT_WAIT).until(EC.title_is("View Filing Data"))
     reportButtons = driver.find_elements_by_class_name("xbrlviewer")
     found = False
     for b in reportButtons:
