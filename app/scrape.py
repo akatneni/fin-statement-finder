@@ -6,8 +6,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 import os
 
-CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
-chrome_bin = os.environ.get("GOOGLE_CHROME_BIN", "chromedriver")
 ERROR_MESSAGE="<h1>CIK cannot be found!</h1>"
 DEFAULT_WAIT=5
 
@@ -15,7 +13,6 @@ def getTable(CIK,page):
 
     url=f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={CIK}&type=10-K&dateb=&owner=include&count=40"
     options = Options()
-    options.binary_location = chrome_bin
     options.add_argument("—-disable-gpu")
     options.add_argument("—-no-sandbox")
     options.headless = True
