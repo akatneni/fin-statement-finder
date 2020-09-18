@@ -6,7 +6,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
 import os
 
-GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
 CHROMEDRIVER_PATH = "/app/.chromedriver/bin/chromedriver"
 chrome_bin = os.environ.get("GOOGLE_CHROME_BIN", "chromedriver")
 ERROR_MESSAGE="<h1>CIK cannot be found!</h1>"
@@ -19,8 +18,8 @@ def getTable(CIK,page):
     options.binary_location = chrome_bin
     options.add_argument("—-disable-gpu")
     options.add_argument("—-no-sandbox")
-    options.add_argument("—-headless")
-    driver = webdriver.Chrome(executable_path=CHROMEDRIVER_PATH, chrome_options=options)
+    options.headless = True
+    driver = webdriver.Chrome(chrome_options=options)
     #url = "https://www.sec.gov/cgi-bin/viewer?action=view&cik=1326801&accession_number=0001326801-20-000013&xbrl_type=v#"
     #driver = webdriver.Remote(command_executor=app.config.ec2_address, options=options)
     #driver=webdriver.Chrome(options=options)
