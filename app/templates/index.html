@@ -5,9 +5,11 @@
       <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='report.css') }}"</link>
   </head>
   <body>
-    <form action="{{url_for('statements')}}" method="post">
-      <input type="text" name="CIK" placeholder="Enter CIK Value" autofocus="autofocus">
-      <button>Go</button>
+    <form action="{{url_for('search')}}" method="get">
+      <input type="text" name="CIK" placeholder="Enter CIK Value" autofocus="autofocus"><br>
+      <button name="statement" value="IS">Income Statement</button>
+      <button name="statement" value="CFS">Cash Flow Statement</button>
+      <button name="statement" value="BS">Balance Sheet</button>
     </form>
   </body>
 </html>

@@ -5,14 +5,11 @@
       <link rel="stylesheet" type= "text/css" href= "{{ url_for('static',filename='report.css') }}"</link>
   </head>
   <body>
-    <form action="{{url_for('statements')}}" method="post">
-      <input type="text" name="CIK" placeholder="Enter CIK Value" autofocus="autofocus">
-      <button>Go</button>
-    </form>
-    <form action="{{url_for('statements')}}" method="post">
-      <button name="statement" value="Income Statement">Income Statement</button>
-      <button name="statement" value="Cash Flow Statement">Cash Flow Statement</button>
-      <button name="statement" value="Balance Sheet">Balance Sheet</button>
+    <form action="{{url_for('search')}}" method="get">
+      <input type="text" name="CIK" value={{CIK}} autofocus="autofocus"><br>
+      <button name="statement" value="IS">Income Statement</button>
+      <button name="statement" value="CFS">Cash Flow Statement</button>
+      <button name="statement" value="BS">Balance Sheet</button>
     </form>
     <div class="reportDiv">
       {{table|safe}}

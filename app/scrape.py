@@ -1,19 +1,16 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as expected_conditions
 import app.config
-#
 
 lastCIK=0
 
 def getTable(CIK,page):
-    #CIK=1326801
-    global lastCIK
-    if CIK=="":
-        CIK=lastCIK
-    lastCIK=CIK
+    ERROR_MESSAGE="<h1>CIK cannot be found!</h1>"
+    DEFAULT_WAIT=5
     url=f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={CIK}&type=10-K&dateb=&owner=include&count=40"
     options = Options()
     options.headless = True
@@ -22,14 +19,20 @@ def getTable(CIK,page):
     #driver=webdriver.Chrome(options=options)
     driver.get(url)
     try:
-        WebDriverWait(driver,10).until(expected_conditions.title_is("EDGAR Search Results"))
+        WebDriverWait(driver,DEFAULT_WAIT).until(expected_conditions.title_is("EDGAR Search Results"))
         driver.find_element_by_id("interactiveDataBtn").click()
     except:
-        return "<h1>Invalid CIK Value</h1>"
-    WebDriverWait(driver,10).until(expected_conditions.title_is("View Filing Data"))
-    # print(rows[0].get_attribute("href"))
-    # rows[0].trigger("click")
-    driver.execute_script(f"loadReport({page});")
+        return ERROR_MESSAGE
+    WebDriverWait(driver,DEFAULT_WAIT).until(expected_conditions.title_is("View Filing Data"))
+    reportButtons = driver.find_elements_by_class_name("xbrlviewer")
+    found = False
+    for b in reportButtons:
+        if b.get_attribute("innerHTML") in page:
+            script=b.get_attribute("href")
+            driver.execute_script(script)
+            found=True
+    if not(found):
+        return ERROR_MESSAGE
     elem = driver.find_element_by_id("reportDiv").get_attribute("innerHTML")
     driver.quit()
     return elem
