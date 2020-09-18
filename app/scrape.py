@@ -4,19 +4,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as expected_conditions
-import app.config
 
-lastCIK=0
+GOOGLE_CHROME_PATH = '/app/.apt/usr/bin/google_chrome'
+CHROMEDRIVER_PATH = '/app/.chromedriver/bin/chromedriver'
+ERROR_MESSAGE="<h1>CIK cannot be found!</h1>"
+DEFAULT_WAIT=5
 
 def getTable(CIK,page):
-    ERROR_MESSAGE="<h1>CIK cannot be found!</h1>"
-    DEFAULT_WAIT=5
+
     url=f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={CIK}&type=10-K&dateb=&owner=include&count=40"
     options = Options()
     options.headless = True
+    options.binary_location = GOOGLE_CHROME_PATH
     #url = "https://www.sec.gov/cgi-bin/viewer?action=view&cik=1326801&accession_number=0001326801-20-000013&xbrl_type=v#"
-    driver = webdriver.Remote(command_executor=app.config.ec2_address, options=options)
+    #driver = webdriver.Remote(command_executor=app.config.ec2_address, options=options)
     #driver=webdriver.Chrome(options=options)
+    driver=webdriver.chrome(execution_path=CHROMEDRIVER_PATH,options=options)
     driver.get(url)
     try:
         WebDriverWait(driver,DEFAULT_WAIT).until(expected_conditions.title_is("EDGAR Search Results"))
