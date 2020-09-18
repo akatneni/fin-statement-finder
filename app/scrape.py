@@ -16,7 +16,6 @@ def getTable(CIK,page):
 
     url=f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={CIK}&type=10-K&dateb=&owner=include&count=40"
     options = webdriver.ChromeOptions()
-    options.headless = True
     options.binary_location = chrome_bin
     options.add_argument(" — disable-gpu")
     options.add_argument(" — no-sandbox")
