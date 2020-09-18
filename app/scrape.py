@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support import expected_conditions as EC
-import os
 
 ERROR_MESSAGE="<h1>CIK cannot be found!</h1>"
 DEFAULT_WAIT=5
@@ -17,7 +16,6 @@ def getTable(CIK,page):
     options.add_argument("—-no-sandbox")
     options.headless = True
     driver = webdriver.Chrome(options=options)
-    #url = "https://www.sec.gov/cgi-bin/viewer?action=view&cik=1326801&accession_number=0001326801-20-000013&xbrl_type=v#"
     #driver = webdriver.Remote(command_executor=app.config.ec2_address, options=options)
     #driver=webdriver.Chrome(options=options)
     driver.get(url)
