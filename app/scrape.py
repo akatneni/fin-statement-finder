@@ -14,12 +14,12 @@ DEFAULT_WAIT=5
 def getTable(CIK,page):
 
     url=f"https://www.sec.gov/cgi-bin/browse-edgar?CIK={CIK}&type=10-K&dateb=&owner=include&count=40"
-    options = webdriver.ChromeOptions()
+    options = Options()
     options.binary_location = chrome_bin
     options.add_argument("—-disable-gpu")
     options.add_argument("—-no-sandbox")
     options.headless = True
-    driver = webdriver.Chrome(chrome_options=options)
+    driver = webdriver.Chrome(options=options)
     #url = "https://www.sec.gov/cgi-bin/viewer?action=view&cik=1326801&accession_number=0001326801-20-000013&xbrl_type=v#"
     #driver = webdriver.Remote(command_executor=app.config.ec2_address, options=options)
     #driver=webdriver.Chrome(options=options)
